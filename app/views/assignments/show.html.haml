@@ -1,0 +1,38 @@
+= render 'submissions/navbar'
+.container
+  .row
+    .col-md-8   
+      %h3
+        = @location.name
+        %br
+      %h6
+        = @course.name
+        = '|'
+        = @assignment.name
+        = '|'
+        = link_to "Submit for Review", new_location_course_assignment_submission_path(@location, @course, @assignment, @submission) if can? :create, Submission
+%hr
+  .row
+    .col-md-8
+      %strong Comments:
+      %br
+      %div.comment
+        - @assignment.comments.each do |comment|
+          = render 'assignments/comment_list', comment: comment
+    .col-md-4
+      = render 'assignments/comment_form'
+%hr
+  .row
+    .col-md-8
+      %strong Submissions-Incomplete
+      %br
+      - @submissions_incomplete.each do |submission|
+        = render 'submissions/submissions', submission: submission
+%hr 
+  .row
+    .col-md-8
+      %strong Submissions- Complete
+      .submissions_complete
+        -@submissions_completed.each do |submission|
+          = submission.name 
+          %br      

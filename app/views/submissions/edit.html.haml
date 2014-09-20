@@ -1,0 +1,14 @@
+= render 'submissions/navbar'
+.container
+  .row
+    .col-md-6.col-md-offset-3    
+      %h1
+        = @location.name
+        %br
+      %h6
+        = @course.name
+        = "|"
+        = @assignment.name
+        %br
+
+= render 'form'

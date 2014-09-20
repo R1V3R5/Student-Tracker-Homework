@@ -1,0 +1,7 @@
+= simple_form_for @location do |f|
+  =f.input :name
+  =f.input :phone_number
+  =f.submit "Submit"
+  %br
+  %hr
+= link_to "Cancel", location_path(@location)

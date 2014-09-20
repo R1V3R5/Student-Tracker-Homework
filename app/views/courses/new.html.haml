@@ -1,0 +1,9 @@
+= render 'courses/navbar'
+%strong Add New Course
+= simple_form_for [@location, @course] do |f|
+  =f.input :name
+  =f.input :description
+  =f.submit "Submit"
+  %br
+  %hr
+= link_to "Home", location_path(@location)

@@ -1,0 +1,35 @@
+= render 'submissions/navbar'
+.container
+  .row
+    .col-md-8  
+      %h3
+        = @location.name
+        %br
+      %h6
+        = @course.name
+        = '|'
+        = @assignment.name
+        = '|'
+        = link_to "Edit #{@submission.title}", edit_location_course_assignment_submission_path(@location, @course, @assignment, @submission) if can? :update, Submission
+        = '|'
+        = link_to "Delete #{@submission.title}", location_course_assignment_submission_path(@location, @course, @assignment, @submission), method: :delete
+        / = '|'
+%hr
+  .row
+    .col-md-8
+%strong Links
+%ul
+  - @submission.links.each do |link|
+    %li
+      %a{"data-href" => " ", :href => " #{link.content}", target: "blank"} 
+        = link.content
+%hr
+  .row
+    .col-md-8   
+      Comments:
+      %br
+      %div.comment  
+        - @submission.comments.each do |comment|
+          = render 'submissions/comment_list', comment: comment
+    .col-md-4
+      = render 'submissions/comment_form'

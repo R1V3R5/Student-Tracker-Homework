@@ -1,0 +1,3 @@
+%li
+  = link_to course.name, location_course_path(@location, course)  if can? :read, Course
+  

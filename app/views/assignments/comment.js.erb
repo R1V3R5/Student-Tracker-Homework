@@ -1,0 +1,3 @@
+$("div.comment li.comment_#{<%= @comment.id %>}").html(
+  "<%= escape_javascript(render(partial: 'assignments/comment_list')) %>"
+  )

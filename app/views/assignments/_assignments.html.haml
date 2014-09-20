@@ -1,0 +1,2 @@
+%li
+  = link_to assignment.name, location_course_assignment_path(@location, @course, assignment) if can? :read, Assignment

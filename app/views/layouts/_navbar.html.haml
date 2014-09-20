@@ -1,0 +1,18 @@
+%header.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav  
+        - if user_signed_in? 
+          = link_to('Logout', destroy_user_session_path, :method => :delete)
+          - if current_user.admin?
+            = link_to "Users", users_path
+        - else
+          = link_to('Login', new_user_session_path)                                  
+      %ul.nav.navbar-nav.navbar-right           
+        %button.btn.btn 
+          = link_to "Home", root_path      

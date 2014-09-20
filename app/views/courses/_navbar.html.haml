@@ -1,0 +1,37 @@
+%header.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav  
+        - if user_signed_in? 
+          = link_to('Logout', destroy_user_session_path, :method => :delete)
+        - else
+          = link_to('Login', new_user_session_path)          
+        .btn-group.navbar-btn        
+          %button.btn.btn 
+            = "#{@location.name}"
+          %button.btn.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+            %span.caret
+          %ul.dropdown-menu
+            %li
+              = link_to "Edit #{@location.name}", edit_location_path(@location) if can? :update, Location
+            %li 
+              - @locations.each do |location|
+                = render 'locations/locations', location: location 
+        .btn-group.navbar-btn
+          %button.btn.btn Courses
+          %button.btn.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+            %span.caret
+          %ul.dropdown-menu
+            %li
+              = link_to "Add Course", new_location_course_path(@location, @course) if can? :create, Course
+            %li
+              - @location.courses.each do |course|
+                = render 'courses/courses', course: course    
+      %ul.nav.navbar-nav.navbar-right           
+        %button.btn.btn 
+          = link_to "Cancel", location_path(@location)        

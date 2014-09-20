@@ -1,0 +1,6 @@
+%li{ class: "#{submission.workflow_state} submission submission_#{submission.id}"}
+  = submission.name
+  = link_to submission.title, location_course_assignment_submission_path(@location, @course, @assignment, submission)
+  = '|'
+  = display_links(submission)
+  %br

@@ -1,0 +1,5 @@
+development:
+  adapter: mysql2
+  pool: 5
+  timeout: 5000
+  database: homework_tracker_d

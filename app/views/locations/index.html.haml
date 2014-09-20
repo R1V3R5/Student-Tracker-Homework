@@ -1,0 +1,14 @@
+= render 'locations/navbar'
+= link_to "Add Location", new_location_path if can? :create, Location
+.container
+  .row
+    .col-md-8
+      %h3 Current Locations
+      %ul
+        %l1
+        - @locations.each do |location|
+          = link_to location.name, location_path(location)
+          %br
+          = location.phone_number
+          %br
+

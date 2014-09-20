@@ -1,0 +1,11 @@
+= nested_form_for [@location, @course, @assignment, @submission] do |f|
+  .inputs
+    = f.label :title
+    = f.text_field :title, placeholder: "Title", :required => true
+  .field
+    = f.fields_for :links do |link_form|
+      = link_form.text_field :content
+      = link_form.link_to_remove "Remove this link"
+    %p= f.link_to_add "Add a link", :links
+  .actions
+    = f.submit 'Save'

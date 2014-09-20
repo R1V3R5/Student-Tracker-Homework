@@ -1,0 +1,12 @@
+= render 'courses/navbar'
+.container
+  .row
+    .col-md-8   
+      %h3
+        = @location.name
+      %h6  
+        = link_to "Create Course", new_location_course_path(@location)  if can? :create, Course
+%hr
+- @course.each do |course|
+  = render 'courses/courses', course: course  if can? :read, Course
+

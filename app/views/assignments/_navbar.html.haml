@@ -1,0 +1,57 @@
+%header.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav  
+        - if user_signed_in? 
+          = link_to('Logout', destroy_user_session_path, :method => :delete)
+        - else
+          = link_to('Login', new_user_session_path)          
+        .btn-group.navbar-btn        
+          %button.btn.btn 
+            = "#{@location.name}"            
+          %button.btn.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+            %span.caret
+          %ul.dropdown-menu
+            %li
+              = link_to "Edit #{@location.name}", edit_location_path(@location) if can? :update, Location
+            %li
+              = link_to "New Location", new_location_path if can? :create, Location
+            %li 
+              - @locations.each do |location|
+                = render 'locations/locations', location: location 
+        .btn-group.navbar-btn
+          %button.btn.btn 
+            = "#{@course.name}"
+          %button.btn.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+            %span.caret
+          %ul.dropdown-menu
+            %li
+              = link_to "Edit #{@course.name}", edit_location_course_path(@location, @course) if can? :update, Course
+            %li
+              = link_to "New Course", new_location_course_path(@location) if can? :create, Course
+            %li
+              - @location.courses.each do |course|
+                = render 'courses/courses', course: course if can? :read, Course
+        .btn-group.navbar-btn
+          %button.btn.btn Assignments
+          %button.btn.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+            %span.caret
+          %ul.dropdown-menu
+            %li
+              = link_to "Add Assignment", new_location_course_assignment_path(@location, @course, @assignment) if can? :create, Assignment
+            %li
+              - @course.assignments.each do |assignment|
+                = render 'assignments/assignments', assignment: assignment  
+        / .btn-group.navbar-btn
+        /   %button.btn.btn Students
+        /   %button.btn.btn.dropdown-toggle{"data-toggle" => "dropdown"}
+        /     %span.caret
+        /   %ul.dropdown-menu                           
+      %ul.nav.navbar-nav.navbar-right           
+        %button.btn.btn 
+          = link_to "Cancel", location_course_path(@location, @course)

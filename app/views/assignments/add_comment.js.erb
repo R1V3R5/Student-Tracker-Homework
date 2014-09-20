@@ -1,0 +1,4 @@
+$("#comment_comment").val("")
+$("div.comment").append(
+  "<%= escape_javascript(render(partial: 'assignments/comment_list',locals:{comment: @comment})) %>"
+  )

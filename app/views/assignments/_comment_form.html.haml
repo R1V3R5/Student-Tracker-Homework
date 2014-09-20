@@ -1,0 +1,9 @@
+%p
+%a#openBtn.btn.btn-default{url: add_comment_location_course_assignment_path(@location, @course, @assignment, @comment) } Add Comment
+#myModal.modal.fade{:role => "dialog", :tabindex => "-1"}
+  .modal-body
+  = form_tag add_comment_location_course_assignment_path(@location, @course, @assignment, @comment), method: :post, remote: true
+  = text_area_tag "comment[comment]", "", placeholder: "Comment"
+  = submit_tag "Save"
+  .modal-footer
+    %button.btn{"data-dismiss" => "modal"} Close

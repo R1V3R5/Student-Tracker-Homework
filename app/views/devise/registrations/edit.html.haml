@@ -1,0 +1,27 @@
+%h2
+  Edit #{resource_name.to_s.humanize}
+= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :email, atuocomplete: "off", hint: "leave blank if you don't want to change it", required: false, autofocus: true
+    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+      %p
+        Currently waiting confirmation for: #{resource.unconfirmed_email}
+    = f.input :name, autocomplete: "off", hint: "leave blank if you don't want to change it", required: false
+  .location
+    - Location.all.each do |location|
+      = check_box_tag 'location[location_ids][]', location.id, false, {id: "location_id_#{location.id}", class: "location_checkbox", location_id: location.id}
+      = label_tag "location_id_#{location.id}", location.name
+    - Course.all.each do |course|
+      %div.course_checkbox{class: "location_#{course.location_id}"}
+        = check_box_tag 'user[course_ids][]', course.id, true, {id: "course_id_#{course.id}"}
+        = label_tag "course_id_#{course.id}", course.name
+    = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false
+    = f.input :password_confirmation, required: false
+    = f.input :current_password, hint: "we need your current password to confirm your changes", required: true
+  .form-actions
+    = f.button :submit, "Update"
+%h3 Cancel my account
+%p
+  Unhappy? #{link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
+= link_to "Back", :back

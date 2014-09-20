@@ -1,0 +1,21 @@
+%h2 Sign up
+= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :email, required: true, autofocus: true
+    = f.input :name, required: true
+    = f.select :user_type, options_for_select(User::USER_TYPES, f.object.user_type)
+  .location
+    - Location.all.each do |location|
+      = check_box_tag 'location[location_ids][]', location.id, false, {id: "location_id_#{location.id}", class: "location_checkbox", location_id: location.id}
+      = label_tag "location_id_#{location.id}", location.name
+    - Course.all.each do |course|
+      %div.course_checkbox{class: "location_#{course.location_id}"}
+        = check_box_tag 'user[course_ids][]', course.id, false, {id: "course_id_#{course.id}"d}
+        = label_tag "course_id_#{course.id}", course.name
+  .form-inputs
+    = f.input :password, required: true
+    = f.input :password_confirmation, required: true
+  .form-actions
+    = f.button :submit, "Sign up"
+= render "devise/shared/links"
